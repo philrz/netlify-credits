@@ -83,7 +83,7 @@ const CATEGORIES_OF_INTEREST = ['Production deploys', 'Bandwidth', 'Web requests
 
   // --- Build Slack message ---
   const emoji = percent >= 90 ? '🔴' : percent >= 75 ? '🟠' : percent >= 50 ? '🟡' : '🟢';
-  const billingUrl = `https://app.netlify.com/teams/${NETLIFY_TEAM_SLUG}/billing/overview`;
+  const billingUrl = `https://app.netlify.com/teams/${NETLIFY_TEAM_SLUG}/billing/general`;
   const now = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
   const breakdownLines = breakdown
