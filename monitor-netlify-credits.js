@@ -11,14 +11,14 @@ const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
   const page = await browser.newPage();
 
   // Log in
-  await page.goto('https://app.netlify.com/login');
+  await page.goto('https://app.netlify.com/login/email');
   await page.fill('input[name="email"]', NETLIFY_EMAIL);
   await page.fill('input[name="password"]', NETLIFY_PASSWORD);
   await page.click('button[type="submit"]');
   await page.waitForNavigation();
 
   // Go to billing
-  await page.goto(`https://app.netlify.com/teams/${NETLIFY_TEAM_SLUG}/billing/overview`);
+  await page.goto(`https://app.netlify.com/teams/${NETLIFY_TEAM_SLUG}/billing/general`);
   await page.waitForSelector('[data-testid="credit-balance"]', { timeout: 10000 })
     .catch(() => {}); // selector may differ — inspect the page to confirm
 
