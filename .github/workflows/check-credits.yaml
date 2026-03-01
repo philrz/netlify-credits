@@ -1,0 +1,28 @@
+# .github/workflows/netlify-credits-monitor.yml
+name: Netlify Credits Monitor
+
+on:
+  workflow_dispatch:        # allow manual runs
+
+jobs:
+  check-credits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install playwright
+          npx playwright install chromium --with-deps
+
+      - name: Run credits monitor
+        env:
+          NETLIFY_EMAIL: ${{ secrets.NETLIFY_EMAIL }}
+          NETLIFY_PASSWORD: ${{ secrets.NETLIFY_PASSWORD }}
+          NETLIFY_TEAM_SLUG: ${{ secrets.NETLIFY_TEAM_SLUG }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node monitor-netlify-credits.js
